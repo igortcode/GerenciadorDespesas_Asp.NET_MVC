@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GerenciadorDespesas.Data.Mapping;     
 
 namespace GerenciadorDespesas.Data
 {
@@ -14,6 +15,15 @@ namespace GerenciadorDespesas.Data
         public DbSet<Salario> Salarios { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
         public Context(DbContextOptions<Context> options) : base(options) { }
-        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new DespesasMap());
+            modelBuilder.ApplyConfiguration(new MesMap());
+            modelBuilder.ApplyConfiguration(new SalarioMap());
+            modelBuilder.ApplyConfiguration(new TipoDespesaMap());
+
+        }
+
     }
 }
