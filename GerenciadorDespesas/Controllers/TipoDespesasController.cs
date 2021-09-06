@@ -20,9 +20,24 @@ namespace GerenciadorDespesas.Controllers
         }
 
         // GET: TipoDespesas
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TipoDespesas.ToListAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string txtProcurar)
+        {
+            if(!String.IsNullOrEmpty(txtProcurar))
+            {
+                List<TipoDespesa> tipo = await _context.TipoDespesas.Where(td => td.Nome.ToUpper().Contains(txtProcurar.ToUpper())).ToListAsync();
+                return View(await _context.TipoDespesas.Where(td => td.Nome.ToUpper().Contains(txtProcurar.ToUpper())).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.TipoDespesas.ToListAsync());
+            }
         }
 
         // GET: TipoDespesas/Create
@@ -111,6 +126,14 @@ namespace GerenciadorDespesas.Controllers
             _context.TipoDespesas.Remove(tipoDespesa);
             await _context.SaveChangesAsync();
             return Json(tipoDespesa.Nome + " excluído com sucesso.");
+        }
+
+        public async Task<JsonResult> TipoDespesaExiste(string nome)
+        {
+            if (_context.TipoDespesas.Any(td => td.Nome.ToUpper() == nome.ToUpper()))
+                return Json("Já existe esse tipo de despesa!");
+            else
+                return Json(true);
         }
 
         private bool TipoDespesaExists(int id)
