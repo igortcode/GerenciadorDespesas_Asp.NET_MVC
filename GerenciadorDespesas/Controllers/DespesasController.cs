@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using GerenciadorDespesas.Data;
 using GerenciadorDespesas.Models;
 using X.PagedList;
+using GerenciadorDespesas.Models.ViewModels;
 
 namespace GerenciadorDespesas.Controllers
 {
@@ -25,6 +26,9 @@ namespace GerenciadorDespesas.Controllers
         {
             const int itensPagina = 10;
             int numeroPagina = pagina ?? 1;
+
+            ViewData["Meses"] = new SelectList(_context.Meses.Where(x => x.Id == x.Salario.MesId), "Id", "Nome");
+
             var context = _context.Despesas.Include(d => d.Mes).Include(d => d.TipoDespesa).OrderBy( d => d.MesId);
             return View(await context.ToPagedListAsync(numeroPagina, itensPagina));
         }
@@ -127,6 +131,28 @@ namespace GerenciadorDespesas.Controllers
         private bool DespesaExists(int id)
         {
             return _context.Despesas.Any(e => e.Id == id);
+        }
+
+        public JsonResult GastosTotaisMes(int mesId)
+        {
+            GastosTotaisMesViewModel gastos = new GastosTotaisMesViewModel();
+            gastos.ValorTotalGasto = _context.Despesas.Where(d => d.Mes.Id == mesId).Sum(d => d.Valor);
+            gastos.Salario = _context.Salarios.Where(s => s.Mes.Id == mesId).Select(s => s.Valor).FirstOrDefault();
+
+            return Json(gastos);
+        }
+
+        public JsonResult GastoMes(int mesId)
+        {
+            var query = from despesa in _context.Despesas
+                        where despesa.Mes.Id == mesId
+                        group despesa by despesa.TipoDespesa.Nome into g
+                        select new
+                        {
+                            TiposDespesas = g.Key,
+                            Valores = g.Sum(d => d.Valor)
+                        };
+            return Json(query);
         }
     }
 }
