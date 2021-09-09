@@ -6,19 +6,21 @@
 }
 
 
-@{
-    if (TempData["confirmacao"] != null)
-    {
-        <h6 class="alert alert-success">
-            @TempData["confirmacao"]
-        </h6>
-    }
-}
+
 
 <div class="tabela">
     <p class="btnNovo">
         <a asp-action="Create" class="btn btn-primary btn-sm">Nova Despesa</a>
     </p>
+
+    @{
+        if (TempData["confirmacao"] != null)
+        {
+            <h6 class="alert alert-success">
+                @TempData["confirmacao"]
+            </h6>
+        }
+    }
 
     <div class="container">
         <div class="tabelaPrincipal">

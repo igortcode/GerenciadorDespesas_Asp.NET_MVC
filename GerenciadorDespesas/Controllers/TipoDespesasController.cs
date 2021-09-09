@@ -140,5 +140,21 @@ namespace GerenciadorDespesas.Controllers
         {
             return _context.TipoDespesas.Any(e => e.Id == id);
         }
+
+        public JsonResult AdicionarTipoDespesa(string txtTipoDespesa)
+        {
+            if (!String.IsNullOrEmpty(txtTipoDespesa))
+            {
+                if(!_context.TipoDespesas.Any(td => td.Nome.ToUpper() == txtTipoDespesa.ToUpper()))
+                {
+                    _context.TipoDespesas.Add(new TipoDespesa {Nome = txtTipoDespesa });
+                    _context.SaveChanges();
+                    return Json(true);
+                }
+                return Json(false);
+
+            }
+            return Json(false);
+        }
     }
 }
