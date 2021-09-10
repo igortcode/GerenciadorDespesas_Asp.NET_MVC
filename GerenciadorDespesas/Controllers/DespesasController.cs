@@ -8,6 +8,7 @@ using GerenciadorDespesas.Data;
 using GerenciadorDespesas.Models;
 using X.PagedList;
 using GerenciadorDespesas.Models.ViewModels;
+using System;
 
 namespace GerenciadorDespesas.Controllers
 {
@@ -159,8 +160,8 @@ namespace GerenciadorDespesas.Controllers
             var query = _context.Despesas
                  .OrderBy(m => m.Mes.Id)
                  .GroupBy(m => m.Mes.Id)
-                 .Select(d => new { NomeMeses = d.Select(x => x.Mes.Nome).Distinct(), Valores = d.Sum(x => x.Valor) });
-     
+                 .Select(d =>  d.Sum(x => x.Valor));
+        
             return Json(query);
         }
 

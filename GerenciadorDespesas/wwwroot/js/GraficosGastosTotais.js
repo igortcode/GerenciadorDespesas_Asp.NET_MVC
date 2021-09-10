@@ -6,11 +6,11 @@
             new Chart(document.getElementById("GraficoGastosTotais"), {
                 type: 'line',
                 data: {
-                    labels: PegarMeses(dados),
+                    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
 
                     datasets: [{
                         label: "Total gasto",
-                        data: PegarValores(dados),
+                        data: dados,
                         backgroundColor: "#ecf0f1",
                         borderColor: "#2980b9",
                         fill: false,
