@@ -36,8 +36,12 @@
             <partial name="_GastoTotalMes" />
         </div>
         <div class="col">
-            <partial name="_GastoMes"/>
+            <partial name="_GastoMes" />
         </div>
+    </div>
+
+    <div class="row">
+        <partial name="_GastosTotais" />
     </div>
 
     <div class="container">
@@ -115,11 +119,13 @@ PageClasses = new string[] { "page-link" }
     <script src="~/js/GraficoTotalMes.js"></script>
     <script src="~/js/MetodosGerais.js"></script>
     <script src="~/js/GraficoGastoMes.js"></script>
+    <script src="~/js/GraficosGastosTotais.js"></script>
 
     <script>
 
         CarregarDadosGastoMes();
         CarregarDadosGastosTotaisMes();
+        CarregarDadosGastosTotais();
         function ExibirModal(id) {
 
             $(".modal").modal();

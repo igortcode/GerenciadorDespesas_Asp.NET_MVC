@@ -16,6 +16,14 @@ function PegarTiposDespesas(dados) {
     return labels;
 }
 
+function PegarMeses(dados) {
+    var labels = [];
+    for (var i = 0; i < dados.length; i++) {
+        labels.push(dados[i].nomeMeses[0]);
+    }
+    return labels;
+}
+
 function PegarCores(quantidade) {
     var cores = [];
 
