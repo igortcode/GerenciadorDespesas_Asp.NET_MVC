@@ -1,11 +1,8 @@
 ﻿using GerenciadorDespesas.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GerenciadorDespesas.Controllers
 {
@@ -20,7 +17,22 @@ namespace GerenciadorDespesas.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<string> conhecimentos = new List<string>() {
+                "Chamadas Ajax",
+                "JSON",
+            "View Models",
+            "View Component",
+            "Partial View",
+            "Biblioteca Charts.js",
+            "CRUD com EntityFramework",
+            "SQLServer",
+            "Injeção de dependencia",
+            "Validações",
+            "Data Annotations",
+            "Estrutura de pastas",
+            "Mapeamento de Entidades"};
+
+            return View(conhecimentos);
         }
 
         public IActionResult Privacy()

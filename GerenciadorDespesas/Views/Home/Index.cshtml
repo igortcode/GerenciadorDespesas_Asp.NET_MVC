@@ -1,8 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<string>
+@{
+    ViewData["Title"] = "Gerenciador de despesas";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="alert alert-success text-center">
+        <h6 class="display-4">Seja bem vindo ao sistema de gerenciamento de despesas!</h6>
+    </div>
+
+    <table class="table table-hover table-light">
+        <thead>
+            <tr>
+                <th>
+                    Conhecimentos utilizados
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.ToString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
